@@ -15,7 +15,7 @@ import java.util.List;
 @Transactional
 @Service
 @RequiredArgsConstructor
-public class EndpointHitServiceImpl implements  EndpointHitService{
+public class EndpointHitServiceImpl implements EndpointHitService {
     private final EndpointHitRepository repository;
     private final EndpointHitMapper mapper;
 

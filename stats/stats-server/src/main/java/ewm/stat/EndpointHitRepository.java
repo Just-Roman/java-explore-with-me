@@ -33,6 +33,4 @@ public interface EndpointHitRepository extends JpaRepository<EndpointHit, Long> 
             @Param("uris") List<String> uris);
 
 
-
-
 }
