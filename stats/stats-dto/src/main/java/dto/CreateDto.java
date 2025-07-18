@@ -25,6 +25,6 @@ public class CreateDto {
     @NotNull
     @Past
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    LocalDateTime timestamp;
+    private LocalDateTime timestamp;
 
 }
