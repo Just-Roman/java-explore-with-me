@@ -1,6 +1,6 @@
 package ewm.stat;
 
-import dto.CreateDto;
+import dto.EndpointHitDto;
 import dto.ViewStatsDto;
 import ewm.stat.service.EndpointHitService;
 import jakarta.validation.Valid;
@@ -21,8 +21,8 @@ public class EndpointHitController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/hit")
-    public void create(@RequestBody @Valid CreateDto createDto) {
-        service.create(createDto);
+    public void create(@RequestBody @Valid EndpointHitDto endpointHitDto) {
+        service.create(endpointHitDto);
     }
 
     @GetMapping("/stats")

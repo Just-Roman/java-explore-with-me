@@ -1,19 +1,17 @@
 package ewm.exception;
 
+import lombok.Builder;
+import lombok.Data;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Data
+@Builder
 public class ErrorResponse {
-    private final String error;
-    private final String description;
-
-    public ErrorResponse(String error, String description) {
-        this.error = error;
-        this.description = description;
-    }
-
-    public String getError() {
-        return error;
-    }
-
-    public String getDescription() {
-        return description;
-    }
+    private final List<String> errors;
+    private final String message;
+    private final String reason;
+    private final String status;
+    private final LocalDateTime timestamp;
 }
