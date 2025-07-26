@@ -1,6 +1,6 @@
 package ewm.stat;
 
-import dto.CreateDto;
+import dto.EndpointHitDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class EndpointHitMapper {
 
-    public EndpointHit dtoToModel(CreateDto dto) {
+    public EndpointHit dtoToModel(EndpointHitDto dto) {
         return EndpointHit.builder()
                 .app(dto.getApp())
                 .uri(dto.getUri())
@@ -16,4 +16,5 @@ public class EndpointHitMapper {
                 .timestamp(dto.getTimestamp())
                 .build();
     }
+
 }

@@ -1,6 +1,6 @@
 package client;
 
-import dto.CreateDto;
+import dto.EndpointHitDto;
 import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,10 +28,10 @@ public class StatsClient {
         rest.setRequestFactory(requestFactory);
     }
 
-    public ResponseEntity<Object> save(CreateDto createDto) {
+    public ResponseEntity<Object> save(EndpointHitDto endpointHitDto) {
         ResponseEntity<Object> response;
         try {
-            response = rest.postForEntity(serverUrl + "/createDto", createDto, Object.class);
+            response = rest.postForEntity(serverUrl + "/hit", endpointHitDto, Object.class);
         } catch (HttpStatusCodeException e) {
             return ResponseEntity.status(e.getStatusCode()).body(e.getResponseBodyAsByteArray());
         }

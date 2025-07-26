@@ -1,19 +1,15 @@
 package dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ViewStatsDto {
     private String app;
     private String uri;
     private Long hits;
-
-    public ViewStatsDto(String app, String uri, Long hits) {
-        this.app = app;
-        this.uri = uri;
-        this.hits = hits;
-    }
 }

@@ -1,7 +1,8 @@
 package ewm.stat.service;
 
-import dto.CreateDto;
+import dto.EndpointHitDto;
 import dto.ViewStatsDto;
+import ewm.exception.BadRequestException;
 import ewm.stat.EndpointHit;
 import ewm.stat.EndpointHitMapper;
 import ewm.stat.EndpointHitRepository;
@@ -20,17 +21,26 @@ public class EndpointHitServiceImpl implements EndpointHitService {
     private final EndpointHitMapper mapper;
 
     @Override
-    public void create(CreateDto createDto) {
-        EndpointHit endpointHit = mapper.dtoToModel(createDto);
+    public void create(EndpointHitDto endpointHitDto) {
+        EndpointHit endpointHit = mapper.dtoToModel(endpointHitDto);
         repository.save(endpointHit);
     }
 
     @Override
     public List<ViewStatsDto> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, boolean unique) {
+        if (start.isAfter(end)) {
+            throw new BadRequestException("Время указанно не верно");
+        }
         if (unique) {
-            return repository.getUniqueStats(start, end, uris);
+            if (uris != null) {
+                return repository.getHitsWithUrisWithUniqueIp(uris, start, end);
+            }
+            return repository.getHitsWithoutUrisWithUniqueIp(start, end);
         } else {
-            return repository.getStats(start, end, uris);
+            if (uris != null) {
+                return repository.getAllHitsWithUris(uris, start, end);
+            }
+            return repository.getAllHitsWithoutUris(start, end);
         }
     }
 
