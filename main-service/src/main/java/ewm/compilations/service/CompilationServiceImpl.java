@@ -37,6 +37,7 @@ public class CompilationServiceImpl implements CompilationService {
     private final CompilationMapper compilationMapper;
 
     @Override
+    @Transactional(readOnly = true)
     public List<CompilationDto> getCompilations(Boolean pinned, Integer from, Integer size) {
         Pageable pageable = PageRequest.of(from / size, size);
         List<Compilation> compilations;

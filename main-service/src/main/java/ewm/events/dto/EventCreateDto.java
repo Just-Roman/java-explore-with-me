@@ -32,7 +32,7 @@ public class EventCreateDto {
     @Valid
     private LocationDto location;
 
-    private boolean paid = false;
+    private boolean paid;
 
     @PositiveOrZero
     private int participantLimit = 0;
@@ -42,13 +42,5 @@ public class EventCreateDto {
     @Size(min = 3, max = 120)
     @NotBlank
     private String title;
-
-    public Boolean getPaid() {
-        return paid;
-    }
-
-    public Boolean getRequestModeration() {
-        return requestModeration;
-    }
 
 }

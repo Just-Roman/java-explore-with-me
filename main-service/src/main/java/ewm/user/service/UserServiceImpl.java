@@ -43,6 +43,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<UserDto> getUsers(List<Long> userIds, Integer from, Integer size) {
         Pageable pageable = PageRequest.of(from / size, size);
         if (userIds != null) {

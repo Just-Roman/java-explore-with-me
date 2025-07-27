@@ -15,13 +15,11 @@ public class CreateCompilationDto {
 
     private List<Long> events;
 
-    private boolean pinned = false;
+    private boolean pinned;
 
     @NotBlank
     @Size(min = 1, max = 50)
     private String title;
 
-    public Boolean getPinned() {
-        return pinned;
-    }
+
 }

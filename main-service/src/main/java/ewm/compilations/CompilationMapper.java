@@ -9,7 +9,7 @@ public class CompilationMapper {
     public Compilation toCompilationEntity(CreateCompilationDto createCompilationDto) {
         return new Compilation(
                 createCompilationDto.getTitle(),
-                createCompilationDto.getPinned()
+                createCompilationDto.isPinned()
         );
     }
 

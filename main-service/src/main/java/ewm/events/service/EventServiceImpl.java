@@ -59,8 +59,9 @@ public class EventServiceImpl implements EventService {
     private final LocationService locationService;
     private final RequestRepository requestRepository;
     private final StatsClient statsClient;
+    private final ObjectMapper objectMapper = new ObjectMapper();
     @Value("${app}")
-    String app;
+    private String app;
 
     @Override
     public EventFullDto create(long userId, EventCreateDto dto) {
@@ -257,8 +258,7 @@ public class EventServiceImpl implements EventService {
         Map<Long, Long> confirmedRequests = requestRepository.findAllByEventIdInAndStatus(ids, CONFIRMED).stream()
                 .collect(Collectors.toMap(ConfirmedRequestsDto::getEvent, ConfirmedRequestsDto::getCount));
         for (Event event : events) {
-            ObjectMapper mapper = new ObjectMapper();
-            List<ViewStatsDto> statsDto = mapper.convertValue(response.getBody(), new TypeReference<>() {
+            List<ViewStatsDto> statsDto = objectMapper.convertValue(response.getBody(), new TypeReference<>() {
             });
             if (!statsDto.isEmpty()) {
                 result.add(eventMapper.toEventFullDtoWithViews(event, statsDto.getFirst().getHits(),
@@ -333,8 +333,7 @@ public class EventServiceImpl implements EventService {
                 .stream()
                 .collect(Collectors.toMap(ConfirmedRequestsDto::getEvent, ConfirmedRequestsDto::getCount));
         for (Event event : events) {
-            ObjectMapper mapper = new ObjectMapper();
-            List<ViewStatsDto> statsDto = mapper.convertValue(response.getBody(), new TypeReference<>() {
+            List<ViewStatsDto> statsDto = objectMapper.convertValue(response.getBody(), new TypeReference<>() {
             });
             if (!statsDto.isEmpty()) {
                 result.add(eventMapper.toEventShortDtoWithViews(event, statsDto.getFirst().getHits(),
@@ -359,8 +358,7 @@ public class EventServiceImpl implements EventService {
         }
         ResponseEntity<Object> response = statsClient.getStats(event.getCreatedOn(), LocalDateTime.now(),
                 List.of(request.getRequestURI()), true);
-        ObjectMapper mapper = new ObjectMapper();
-        List<ViewStatsDto> statsDto = mapper.convertValue(response.getBody(), new TypeReference<>() {
+        List<ViewStatsDto> statsDto = objectMapper.convertValue(response.getBody(), new TypeReference<>() {
         });
         EventViewsFullDto result;
         if (!statsDto.isEmpty()) {

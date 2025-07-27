@@ -41,12 +41,14 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<CategoryDto> getCategories(Integer from, Integer size) {
         Pageable pageable = PageRequest.of(from / size, size);
         return repository.findAll(pageable).map(mapper::modelToDto).toList();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public CategoryDto getById(long categoryId) {
         Category category = checkAndReturnCategory(categoryId);
         return mapper.modelToDto(category);
